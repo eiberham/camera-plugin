@@ -19,8 +19,8 @@
         </js-module>
 
         <config-file target="res/xml/config.xml" parent="/*">
-            <feature name="CameraPlugin">
-                <param name="android-package" value="com.example.acedeno.customcamera.CameraPlugin"/>
+            <feature name="CustomCameraPlugin">
+                <param name="android-package" value="com.example.acedeno.customcamera.CustomCameraPlugin"/>
             </feature>
         </config-file>
 
