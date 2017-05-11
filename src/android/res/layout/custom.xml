@@ -78,8 +78,6 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:elevation="0dp"
-            app:fabSize="normal"
-            app:borderWidth="0dp"
             android:gravity="center_vertical|center_horizontal"
             android:scaleType="center"
             android:src="@mipmap/ic_camera"
