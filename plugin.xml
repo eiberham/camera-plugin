@@ -36,7 +36,7 @@
         </config-file>
 
         <source-file src="src/android/CustomCameraActivity.java" target-dir="src/com/example/customcameraactivity" />
-        <source-file src="src/android/CameraPlugin.java" target-dir="src/com/example/cameraplugin" />
+        <source-file src="src/android/CustomCameraPlugin.java" target-dir="src/com/example/customcameraplugin" />
         <source-file src="src/android/res/values/dimens.xml" target-dir="res/values"/>
 
         <!--  drawable src/android/resources -->
