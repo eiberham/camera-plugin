@@ -63,6 +63,8 @@
         <resource-file src="src/android/res/mipmap-xhdpi/ic_launcher.png" target="res/mipmap-xhdpi/ic_launcher.png" />
         <resource-file src="src/android/res/mipmap-xxhdpi/ic_launcher.png" target="res/mipmap-xxhdpi/ic_launcher.png" />
 
+        <!-- colors     src/android/resources -->
+        <resource-file src="src/android/res/values/colors.xml" target="res/values/colors.xml" />
 
         <!-- layout     src/android/resources -->
 
