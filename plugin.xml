@@ -41,11 +41,11 @@
 
         <!--  drawable src/android/resources -->
 
-        <resource-file src="src/android/res/drawable-hdpi/ic_trash.png" target="res/drawable-hdpi/ic_arrow_right.png" />
-        <resource-file src="src/android/res/drawable-mdpi/ic_trash.png" target="res/drawable-mdpi/ic_arrow_right.png" />
-        <resource-file src="src/android/res/drawable-xhdpi/ic_trash.png" target="res/drawable-xhdpi/ic_arrow_right.png" />
-        <resource-file src="src/android/res/drawable-xxhdpi/ic_trash.png" target="res/drawable-xxhdpi/ic_arrow_right.png" />
-        <resource-file src="src/android/res/drawable-xxxhdpi/ic_trash.png" target="res/drawable-xxxhdpi/ic_arrow_right.png" />
+        <resource-file src="src/android/res/drawable-hdpi/ic_arrow_right.png" target="res/drawable-hdpi/ic_arrow_right.png" />
+        <resource-file src="src/android/res/drawable-mdpi/ic_arrow_right" target="res/drawable-mdpi/ic_arrow_right.png" />
+        <resource-file src="src/android/res/drawable-xhdpi/ic_arrow_right" target="res/drawable-xhdpi/ic_arrow_right.png" />
+        <resource-file src="src/android/res/drawable-xxhdpi/ic_arrow_right" target="res/drawable-xxhdpi/ic_arrow_right.png" />
+        <resource-file src="src/android/res/drawable-xxxhdpi/ic_arrow_right" target="res/drawable-xxxhdpi/ic_arrow_right.png" />
 
         <!--  mipmap src/android/resources -->
 
