@@ -10,6 +10,7 @@ import org.apache.cordova.PluginResult;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
+import android.app.Activity;
 
 import java.util.ArrayList;
 
@@ -32,33 +33,26 @@ public class CustomCameraPlugin extends CordovaPlugin{
 
             Intent intent = new Intent(this.cordova.getActivity(), CustomCameraActivity.class);
 
-            if(this.cordova != null){
+            if(this.cordova != null)
                 this.cordova.startActivityForResult((CordovaPlugin) this, intent, 1);
-            } else {
-               Toast.makeText(this.cordova.getActivity(),"CORDOVA ES NULL",
-                            Toast.LENGTH_LONG).show(); 
-            }
+            
 
             PluginResult r = new PluginResult(PluginResult.Status.OK);
             r.setKeepCallback(true);
             callbackContext.sendPluginResult(r);
 
             return true;
-        } else {
-            Toast.makeText(this.cordova.getActivity(),"ACCION ERRONEA",
-                            Toast.LENGTH_LONG).show();
         }
 
-        return true;
+        return false;
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         // TODO Auto-generated method stub
         super.onActivityResult(requestCode, resultCode, intent);
-        Toast.makeText(this.cordova.getActivity(),"ACTIVITY RESULT",
-                            Toast.LENGTH_LONG).show();
-        if (requestCode == GET_PICTURES_REQUEST && callback != null) {
+        
+        /*if (requestCode == GET_PICTURES_REQUEST && callback != null) {
             if (resultCode == cordova.getActivity().RESULT_OK) {
                 Bundle extras = intent.getExtras();
                 //ArrayList<String> result = extras.getStringArrayList("result");
@@ -74,6 +68,8 @@ public class CustomCameraPlugin extends CordovaPlugin{
                 callback.sendPluginResult(r);
 
             }
-        }
+        }*/
+
+        resultCode = Activity.RESULT_OK;
     }
 }
