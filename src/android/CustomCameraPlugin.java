@@ -30,17 +30,11 @@ public class CustomCameraPlugin extends CordovaPlugin{
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if(action.equals(CAMERA)){
             Log.i("XXX", "pasa por camera");
-            final CustomCameraPlugin interfaz = this;
-            final CallbackContext callback = callbackContext;
-            cordova.getActivity().runOnUiThread(new Runnable() {
+            this.cordova.getActivity().runOnUiThread(new Runnable() {
                 public void run() {
-                    init();
+                    init(callbackContext);
                 }
             });
-
-            PluginResult r = new PluginResult(PluginResult.Status.OK);
-            r.setKeepCallback(true);
-            callbackContext.sendPluginResult(r);
 
             return true;
         }
@@ -48,11 +42,15 @@ public class CustomCameraPlugin extends CordovaPlugin{
         return false;
     }
 
-    private void init(){
+    private void init(CallbackContext callbackContext){
         Intent intent = new Intent(this.cordova.getActivity(), CustomCameraActivity.class);
 
         if(cordova != null)
             cordova.startActivityForResult((CordovaPlugin)this, intent, 1);
+
+        PluginResult r = new PluginResult(PluginResult.Status.OK);
+        r.setKeepCallback(true);
+        callbackContext.sendPluginResult(r);
         
     }
 
