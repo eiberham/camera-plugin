@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 import android.app.Activity;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -28,7 +29,7 @@ public class CustomCameraPlugin extends CordovaPlugin{
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         callback = callbackContext;
         if(action.equals(CAMERA)){
-
+            Log.i("XXX", "pasa por camera");
             Intent intent = new Intent(this.cordova.getActivity(), CustomCameraActivity.class);
 
             if(this.cordova != null)
