@@ -14,8 +14,8 @@
 
     <platform name="android">
 
-        <js-module src="www/CustomCamera.js" name="CustomCamera">
-            <clobbers target="CustomCamera" />
+        <js-module src="www/CustomCamera.js" name="CustomCameraPlugin">
+            <clobbers target="CustomCameraPlugin" />
         </js-module>
 
         <config-file target="res/xml/config.xml" parent="/*">
