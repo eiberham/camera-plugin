@@ -34,13 +34,7 @@ public class CustomCameraPlugin extends CordovaPlugin{
             final CallbackContext callback = callbackContext;
             cordova.getActivity().runOnUiThread(new Runnable() {
                 public void run() {
-                    Intent intent = new Intent(cordova.getActivity(), CustomCameraActivity.class);
-
-                    if(cordova != null){
-                        Context context = cordova.getActivity().getApplicationContext();
-                        cordova.startActivityForResult(context, intent, 1);
-                    }
-                
+                    init();
                 }
             });
 
@@ -52,6 +46,14 @@ public class CustomCameraPlugin extends CordovaPlugin{
         }
 
         return false;
+    }
+
+    private void init(){
+        Intent intent = new Intent(this.cordova.getActivity(), CustomCameraActivity.class);
+
+        if(cordova != null)
+            cordova.startActivityForResult((CordovaPlugin)this, intent, 1);
+        
     }
 
     @Override
