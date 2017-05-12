@@ -136,8 +136,7 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
                     }, 2000);
 
                 } else {
-                    Toast.makeText(getBaseContext(),"GENERA PDF Y PASA AL PREVISUALIZADOR",
-                            Toast.LENGTH_LONG).show();
+                    
 
                     Intent response = new Intent();
                     response.putExtra("result", pagepath);
@@ -216,9 +215,7 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
 
                 } else {
 
-                    Toast.makeText(getBaseContext(),"You must give permission in order to use the " +
-                                    "camera",
-                            Toast.LENGTH_LONG).show();
+                    
                 }
                 return;
             }
@@ -280,8 +277,7 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
             @Override
             public void onClick(View v) {
                 if(pagepath.size() > 0){
-                    Toast.makeText(getBaseContext(),"GENERA PDF Y PASA AL PREVISUALIZADOR",
-                            Toast.LENGTH_LONG).show();
+                    
 
                     Intent response = new Intent();
                     response.putStringArrayListExtra("result", pagepath);
