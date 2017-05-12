@@ -32,8 +32,12 @@ public class CustomCameraPlugin extends CordovaPlugin{
 
             Intent intent = new Intent(this.cordova.getActivity(), CustomCameraActivity.class);
 
-            if(this.cordova != null)
-                this.cordova.startActivityForResult((CordovaPlugin) this, intent, GET_PICTURES_REQUEST);
+            if(this.cordova != null){
+                this.cordova.startActivityForResult((CordovaPlugin) this, intent, 1);
+            } else {
+               Toast.makeText(this.cordova.getActivity(),"CORDOVA ES NULL",
+                            Toast.LENGTH_LONG).show(); 
+            }
 
             PluginResult r = new PluginResult(PluginResult.Status.OK);
             r.setKeepCallback(true);
@@ -52,7 +56,8 @@ public class CustomCameraPlugin extends CordovaPlugin{
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         // TODO Auto-generated method stub
         super.onActivityResult(requestCode, resultCode, intent);
-
+        Toast.makeText(this.cordova.getActivity(),"ACTIVITY RESULT",
+                            Toast.LENGTH_LONG).show();
         if (requestCode == GET_PICTURES_REQUEST && callback != null) {
             if (resultCode == cordova.getActivity().RESULT_OK) {
                 Bundle extras = intent.getExtras();
