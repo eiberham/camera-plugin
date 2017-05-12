@@ -22,7 +22,7 @@ public class CustomCameraPlugin extends CordovaPlugin{
 
     private static final String CAMERA = "customCamera";
     private static final int GET_PICTURES_REQUEST = 1;
-    CallbackContext callback;
+    final CallbackContext callback;
 
 
     public CustomCameraPlugin() {}
@@ -42,7 +42,7 @@ public class CustomCameraPlugin extends CordovaPlugin{
 
                     PluginResult r = new PluginResult(PluginResult.Status.OK);
                     r.setKeepCallback(true);
-                    callbackContext.sendPluginResult(r);
+                    callback.sendPluginResult(r);
                 }
             });
 
