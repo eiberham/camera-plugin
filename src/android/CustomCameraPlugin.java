@@ -5,6 +5,7 @@ import org.apache.cordova.CordovaPlugin;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.apache.cordova.PluginResult;
+import org.apache.cordova.CordovaInterface;
 
 
 import android.content.Intent;
@@ -30,13 +31,13 @@ public class CustomCameraPlugin extends CordovaPlugin{
         callback = callbackContext;
         if(action.equals(CAMERA)){
             Log.i("XXX", "pasa por camera");
-
+            CordovaInterface interfaz = this;
             this.cordova.getActivity().runOnUiThread(new Runnable() {
                 public void run() {
                     Intent intent = new Intent(this.cordova.getActivity(), CustomCameraActivity.class);
 
-                    if(this.cordova != null)
-                        this.cordova.startActivityForResult((CordovaPlugin) this, intent, 1);
+                    if(interfaz.cordova != null)
+                        interfaz.cordova.startActivityForResult((CordovaPlugin) interfaz, intent, 1);
                     
 
                     PluginResult r = new PluginResult(PluginResult.Status.OK);
