@@ -27,7 +27,7 @@ public class CustomCameraPlugin extends CordovaPlugin{
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         callback = callbackContext;
         if(action.equals(CAMERA)){
-            Toast.makeText(getBaseContext(),"ACCION CORRECTA",
+            Toast.makeText(this.cordova.getActivity(),"ACCION CORRECTA",
                             Toast.LENGTH_LONG).show();
 
             Intent intent = new Intent(this.cordova.getActivity(), CustomCameraActivity.class);
@@ -41,7 +41,7 @@ public class CustomCameraPlugin extends CordovaPlugin{
 
             return true;
         } else {
-            Toast.makeText(getBaseContext(),"ACCION ERRONEA",
+            Toast.makeText(this.cordova.getActivity(),"ACCION ERRONEA",
                             Toast.LENGTH_LONG).show();
         }
 
