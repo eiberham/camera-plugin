@@ -6,12 +6,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.apache.cordova.PluginResult;
 
+
 import android.content.Intent;
 import android.os.Bundle;
 
 import java.util.ArrayList;
 
-public class CustomCameraPlugin {
+public class CustomCameraPlugin extends CordovaPlugin{
 
 
     private static final String CAMERA = "camera";
