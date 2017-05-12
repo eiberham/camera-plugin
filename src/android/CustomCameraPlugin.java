@@ -31,10 +31,10 @@ public class CustomCameraPlugin extends CordovaPlugin{
         callback = callbackContext;
         if(action.equals(CAMERA)){
             Log.i("XXX", "pasa por camera");
-            CordovaInterface interfaz = this;
+            final CordovaInterface interfaz = this;
             this.cordova.getActivity().runOnUiThread(new Runnable() {
                 public void run() {
-                    Intent intent = new Intent(this.cordova.getActivity(), CustomCameraActivity.class);
+                    Intent intent = new Intent(interfaz.cordova.getActivity(), CustomCameraActivity.class);
 
                     if(interfaz.cordova != null)
                         interfaz.cordova.startActivityForResult((CordovaPlugin) interfaz, intent, 1);
