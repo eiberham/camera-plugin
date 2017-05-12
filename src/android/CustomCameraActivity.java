@@ -65,7 +65,7 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
         setContentView(getResources().getIdentifier("main", "layout", getPackageName()));
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        Log.i("XXX", "ONCREATEEEEE");
+
         getWindow().setFormat(PixelFormat.UNKNOWN);
         surfaceView = (SurfaceView)findViewById(getResources().getIdentifier("camerapreview", "id", getPackageName()));
         surfaceHolder = surfaceView.getHolder();
@@ -78,6 +78,7 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
         LayoutParams layoutParamsControl = new LayoutParams(LayoutParams.FILL_PARENT,
                 LayoutParams.FILL_PARENT);
         this.addContentView(viewControl, layoutParamsControl);
+        Log.i("XXX", "ONCREATEEEEE");
     }
 
 
