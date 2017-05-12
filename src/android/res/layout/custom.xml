@@ -70,7 +70,7 @@
         android:gravity="center"
         android:layout_marginBottom="20dp"
         android:orientation="horizontal"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/com.example.acedeno.customcamera">
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/Snapshot"
