@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class CustomCameraPlugin extends CordovaPlugin{
 
 
-    private static final String CAMERA = "camera";
+    private static final String CAMERA = "customCamera";
     private static final int GET_PICTURES_REQUEST = 1;
     CallbackContext callback;
 

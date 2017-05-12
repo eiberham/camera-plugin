@@ -28,7 +28,7 @@ var CustomCameraPlugin =
      */
     init : function()
     {
-        return exec(null, null, "CustomCameraPlugin", "camera", []);
+        return exec(null, null, "CustomCameraPlugin", "customCamera", []);
     }
 }
 
