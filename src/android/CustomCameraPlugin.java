@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 import android.app.Activity;
 import android.util.Log;
+import android.content.Context;
 
 import java.util.ArrayList;
 
@@ -31,19 +32,21 @@ public class CustomCameraPlugin extends CordovaPlugin{
             Log.i("XXX", "pasa por camera");
             final CustomCameraPlugin interfaz = this;
             final CallbackContext callback = callbackContext;
-            this.cordova.getThreadPool().execute(new Runnable() {
+            cordova.getActivity().runOnUiThread(new Runnable() {
                 public void run() {
-                    Intent intent = new Intent(interfaz.cordova.getActivity(), CustomCameraActivity.class);
+                    Intent intent = new Intent(cordova.getActivity(), CustomCameraActivity.class);
 
-                    if(interfaz.cordova != null)
-                        interfaz.cordova.startActivityForResult((CordovaPlugin) interfaz, intent, 1);
-                    
-
-                    PluginResult r = new PluginResult(PluginResult.Status.OK);
-                    r.setKeepCallback(true);
-                    callback.sendPluginResult(r);
+                    if(cordova != null){
+                        Context context = cordova.getActivity().getApplicationContext();
+                        cordova.startActivityForResult(context, intent, 1);
+                    }
+                
                 }
             });
+
+            PluginResult r = new PluginResult(PluginResult.Status.OK);
+            r.setKeepCallback(true);
+            callbackContext.sendPluginResult(r);
 
             return true;
         }
