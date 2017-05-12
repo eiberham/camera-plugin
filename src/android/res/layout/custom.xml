@@ -69,7 +69,8 @@
         android:layout_alignParentBottom="true"
         android:gravity="center"
         android:layout_marginBottom="20dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/Snapshot"
