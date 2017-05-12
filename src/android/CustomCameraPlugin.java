@@ -30,15 +30,20 @@ public class CustomCameraPlugin extends CordovaPlugin{
         callback = callbackContext;
         if(action.equals(CAMERA)){
             Log.i("XXX", "pasa por camera");
-            Intent intent = new Intent(this.cordova.getActivity(), CustomCameraActivity.class);
 
-            if(this.cordova != null)
-                this.cordova.startActivityForResult((CordovaPlugin) this, intent, 1);
-            
+            cordova.getActivity().runOnUiThread(new Runnable() {
+                public void run() {
+                    Intent intent = new Intent(this.cordova.getActivity(), CustomCameraActivity.class);
 
-            PluginResult r = new PluginResult(PluginResult.Status.OK);
-            r.setKeepCallback(true);
-            callbackContext.sendPluginResult(r);
+                    if(this.cordova != null)
+                        this.cordova.startActivityForResult((CordovaPlugin) this, intent, 1);
+                    
+
+                    PluginResult r = new PluginResult(PluginResult.Status.OK);
+                    r.setKeepCallback(true);
+                    callbackContext.sendPluginResult(r);
+                }
+            });
 
             return true;
         }
