@@ -9,8 +9,10 @@ import org.apache.cordova.PluginResult;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+
 
 public class CustomCameraPlugin extends CordovaPlugin{
 
@@ -25,6 +27,9 @@ public class CustomCameraPlugin extends CordovaPlugin{
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         callback = callbackContext;
         if(action.equals(CAMERA)){
+            Toast.makeText(getBaseContext(),"ACCION CORRECTA",
+                            Toast.LENGTH_LONG).show();
+
             Intent intent = new Intent(this.cordova.getActivity(), CustomCameraActivity.class);
 
             if(this.cordova != null)
@@ -35,6 +40,9 @@ public class CustomCameraPlugin extends CordovaPlugin{
             callbackContext.sendPluginResult(r);
 
             return true;
+        } else {
+            Toast.makeText(getBaseContext(),"ACCION ERRONEA",
+                            Toast.LENGTH_LONG).show();
         }
 
         return true;
