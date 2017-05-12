@@ -30,7 +30,7 @@
         </config-file>
 
         <config-file target="AndroidManifest.xml" parent="/manifest/application">
-            <activity android:name="com.example.acedeno.customcamera.CameraPlugin"
+            <activity android:name="com.example.acedeno.customcamera.CustomCameraActivity"
                       android:exported="true"
                       android:theme="@android:style/Theme.Black.NoTitleBar"/>
         </config-file>
