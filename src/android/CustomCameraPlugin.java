@@ -44,9 +44,9 @@ public class CustomCameraPlugin extends CordovaPlugin{
                     if(this.self.cordova != null)
                         this.self.cordova.startActivityForResult((CordovaPlugin)this.self, intent, 1);
 
-                    PluginResult r = new PluginResult(PluginResult.Status.OK);
+                    /*PluginResult r = new PluginResult(PluginResult.Status.OK);
                     r.setKeepCallback(true);
-                    this.callback.sendPluginResult(r);
+                    this.callback.sendPluginResult(r);*/
                 }
             }
 
