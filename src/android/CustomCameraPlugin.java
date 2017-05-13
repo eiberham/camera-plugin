@@ -23,14 +23,12 @@ public class CustomCameraPlugin extends CordovaPlugin{
 
     private static final String CAMERA = "customCamera";
     private static final int GET_PICTURES_REQUEST = 1;
-    public final CallbackContext callback;
 
 
     public CustomCameraPlugin() {}
 
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if(action.equals(CAMERA)){
-            this.callback = callbackContext;
             Log.i("XXX", "pasa por camera");
             /*this.cordova.getActivity().runOnUiThread(new Runnable() {
                 public void run() {
@@ -38,19 +36,21 @@ public class CustomCameraPlugin extends CordovaPlugin{
                 }
             });*/
 
-            this.cordova.getActivity().runOnUiThread(new Snapshot(callbackContext));
+            this.cordova.getActivity().runOnUiThread(new Snapshot(callbackContext), this);
 
 
             class Snapshot implements Runnable {
                 private CallbackContext callback;
-                Snapshot(CallbackContext callbackContext){
+                private CustomCameraPlugin self;
+                Snapshot(CallbackContext callbackContext, CustomCameraPlugin self){
                     this.callback = callbackContext;
+                    this.self     = self
                 }
                 public void run(){
-                    Intent intent = new Intent(this.cordova.getActivity(), CustomCameraActivity.class);
+                    Intent intent = new Intent(self.cordova.getActivity(), CustomCameraActivity.class);
 
-                    if(cordova != null)
-                        cordova.startActivityForResult((CordovaPlugin)this, intent, 1);
+                    if(this.self.cordova != null)
+                        this.self.cordova.startActivityForResult((CordovaPlugin)this.self, intent, 1);
 
                     PluginResult r = new PluginResult(PluginResult.Status.OK);
                     r.setKeepCallback(true);
