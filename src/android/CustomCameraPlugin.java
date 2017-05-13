@@ -23,7 +23,7 @@ public class CustomCameraPlugin extends CordovaPlugin{
 
     private static final String CAMERA = "customCamera";
     private static final int GET_PICTURES_REQUEST = 1;
-    final CallbackContext callback;
+    public final CallbackContext callback;
 
 
     public CustomCameraPlugin() {}
@@ -32,11 +32,31 @@ public class CustomCameraPlugin extends CordovaPlugin{
         if(action.equals(CAMERA)){
             this.callback = callbackContext;
             Log.i("XXX", "pasa por camera");
-            this.cordova.getActivity().runOnUiThread(new Runnable() {
+            /*this.cordova.getActivity().runOnUiThread(new Runnable() {
                 public void run() {
-                    init(callbackContext);
+                    init(CustomCameraActivity.callback);
                 }
-            });
+            });*/
+
+            this.cordova.getActivity().runOnUiThread(new Snapshot(callbackContext));
+
+
+            class Snapshot implements Runnable {
+                private CallbackContext callback;
+                Snapshot(CallbackContext callbackContext){
+                    this.callback = callbackContext;
+                }
+                public void run(){
+                    Intent intent = new Intent(this.cordova.getActivity(), CustomCameraActivity.class);
+
+                    if(cordova != null)
+                        cordova.startActivityForResult((CordovaPlugin)this, intent, 1);
+
+                    PluginResult r = new PluginResult(PluginResult.Status.OK);
+                    r.setKeepCallback(true);
+                    this.callback.sendPluginResult(r);
+                }
+            }
 
             return true;
         }
@@ -44,15 +64,8 @@ public class CustomCameraPlugin extends CordovaPlugin{
         return false;
     }
 
-    private void init(){
-        Intent intent = new Intent(this.cordova.getActivity(), CustomCameraActivity.class);
+    private void init(CallbackContext callbackContext){
 
-        if(cordova != null)
-            cordova.startActivityForResult((CordovaPlugin)this, intent, 1);
-
-        PluginResult r = new PluginResult(PluginResult.Status.OK);
-        r.setKeepCallback(true);
-        this.callback.sendPluginResult(r);
         
     }
 
