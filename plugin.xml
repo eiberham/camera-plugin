@@ -40,6 +40,10 @@
         <source-file src="src/android/CustomCameraPlugin.java" target-dir="src/com/example/customcameraactivity" />
         <source-file src="src/android/res/values/dimens.xml" target-dir="res/values"/>
 
+        <!-- gradle dependencies -->
+        <framework src="com.android.support:support-v4:+" />
+        <framework src="com.android.support:appcompat-v7:+" />
+
         <!--  drawable src/android/resources -->
 
         <resource-file src="src/android/res/drawable-hdpi/ic_arrow_right.png" target="res/drawable-hdpi/ic_arrow_right.png" />
