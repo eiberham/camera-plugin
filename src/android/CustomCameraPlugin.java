@@ -36,8 +36,6 @@ public class CustomCameraPlugin extends CordovaPlugin{
                 }
             });*/
 
-            this.cordova.getActivity().runOnUiThread(new Snapshot(callbackContext), this);
-
 
             class Snapshot implements Runnable {
                 private CallbackContext callback;
@@ -57,6 +55,8 @@ public class CustomCameraPlugin extends CordovaPlugin{
                     this.callback.sendPluginResult(r);
                 }
             }
+
+            this.cordova.getActivity().runOnUiThread(new Snapshot(callbackContext), this);
 
             return true;
         }
