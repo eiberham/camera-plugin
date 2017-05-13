@@ -196,13 +196,13 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
 
-            Log.i("XXX", "Pasa x aqui");
+            //Log.i("XXX", "Pasa x aqui");
             if(requestCode == NOSCONECTA_CAMERA_PERMISSION) {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    Log.i("XXX", "tmb Pasa x aqui");
+                    //Log.i("XXX", "tmb Pasa x aqui");
 
                     camera = Camera.open(CAMERA_ID);
                     try {
@@ -224,7 +224,7 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-        Log.i("XXX", "Surface changed event");
+        //Log.i("XXX", "Surface changed event");
         if(previewing){
             camera.stopPreview();
             previewing = false;
@@ -247,7 +247,7 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-        Log.i("XXX", "Surface created");
+        //Log.i("XXX", "Surface created");
 
         progress = (LinearLayout)findViewById(getResources().getIdentifier("progressbar", "id", getPackageName()));
 
@@ -334,7 +334,7 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
-        Log.i("XXX", "surface destroyed");
+        //Log.i("XXX", "surface destroyed");
         camera.stopPreview();
         camera.release();
         camera = null;
