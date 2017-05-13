@@ -33,7 +33,7 @@
             <activity android:name="com.example.acedeno.customcamera.CustomCameraActivity"
                       android:exported="true"
                       android:screenOrientation="portrait"
-                      android:theme="@android:style/Theme.DeviceDefault.NoActionBar"/>
+                      android:theme="@style/AppTheme"/>
         </config-file>
 
         <source-file src="src/android/CustomCameraActivity.java" target-dir="src/com/example/customcameraactivity" />
@@ -66,6 +66,9 @@
 
         <!-- colors     src/android/resources -->
         <resource-file src="src/android/res/values/colors.xml" target="res/values/colors.xml" />
+
+        <!-- styles     src/android/resources -->
+        <resource-file src="src/android/res/values/styles.xml" target="res/values/styles.xml" />
 
         <!-- layout     src/android/resources -->
 
