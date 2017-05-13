@@ -44,7 +44,7 @@ public class CustomCameraPlugin extends CordovaPlugin{
         return false;
     }
 
-    private void init(CallbackContext callbackContext){
+    private void init(){
         Intent intent = new Intent(this.cordova.getActivity(), CustomCameraActivity.class);
 
         if(cordova != null)
