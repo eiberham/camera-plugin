@@ -11,9 +11,11 @@ import java.security.SecureRandom;
 import java.util.ArrayList;
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -25,6 +27,7 @@ import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -48,10 +51,11 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
     Button cancel;
     ImageButton snapshot;
     Button paginator;
-    Button multipages;
+    Button flash;
     LinearLayout progress;
+    Context context;
 
-    boolean multipaged = false;
+    boolean flashed = false;
 
     private ArrayList<String> pagepath = new ArrayList<String>();
 
@@ -78,7 +82,6 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
         LayoutParams layoutParamsControl = new LayoutParams(LayoutParams.FILL_PARENT,
                 LayoutParams.FILL_PARENT);
         this.addContentView(viewControl, layoutParamsControl);
-        Log.i("XXX", "ONCREATEEEEE");
     }
 
 
@@ -118,34 +121,22 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
 
                 pagepath.add(filepath);
 
-                if(multipaged){
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            progress.setVisibility(View.GONE);
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        progress.setVisibility(View.GONE);
 
-                            //TODO: Mover este bloque que actualiza las páginas a alguna función
+                        //TODO: Mover este bloque que actualiza las páginas a alguna función
 
-                            paginator.setText(pagepath.size() + " PÁGINAS");
-                            if(pagepath.size() > 0){
-                                paginator.setCompoundDrawablesWithIntrinsicBounds(0, 0, getResources().getIdentifier("ic_arrow_right", "drawable", getPackageName()), 0);
-                            }
-
-                            camera.startPreview();
+                        paginator.setText(pagepath.size() + " PÁGINAS");
+                        if(pagepath.size() > 0){
+                            paginator.setCompoundDrawablesWithIntrinsicBounds(0, 0, getResources().getIdentifier("ic_arrow_right", "drawable", getPackageName()), 0);
                         }
-                    }, 2000);
 
-                } else {
-                    
-
-                    Intent response = new Intent();
-                    response.putExtra("result", pagepath);
-                    setResult(Activity.RESULT_OK, response);
-                    finish();
-
-                    //startActivity(getIntent());
-                }
+                        camera.startPreview();
+                    }
+                }, 2000);
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -196,13 +187,13 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
 
-            //Log.i("XXX", "Pasa x aqui");
+            Log.i("XXX", "Pasa x aqui");
             if(requestCode == NOSCONECTA_CAMERA_PERMISSION) {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    //Log.i("XXX", "tmb Pasa x aqui");
+                    Log.i("XXX", "tmb Pasa x aqui");
 
                     camera = Camera.open(CAMERA_ID);
                     try {
@@ -216,7 +207,9 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
 
                 } else {
 
-                    
+                    Toast.makeText(getBaseContext(),"You must give permission in order to use the " +
+                                    "camera",
+                            Toast.LENGTH_LONG).show();
                 }
                 return;
             }
@@ -224,7 +217,7 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-        //Log.i("XXX", "Surface changed event");
+        Log.i("XXX", "Surface changed event");
         if(previewing){
             camera.stopPreview();
             previewing = false;
@@ -247,7 +240,7 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-        //Log.i("XXX", "Surface created");
+        Log.i("XXX", "Surface created");
 
         progress = (LinearLayout)findViewById(getResources().getIdentifier("progressbar", "id", getPackageName()));
 
@@ -278,7 +271,8 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
             @Override
             public void onClick(View v) {
                 if(pagepath.size() > 0){
-                    
+                    Toast.makeText(getBaseContext(),"GENERA PDF Y PASA AL PREVISUALIZADOR",
+                            Toast.LENGTH_LONG).show();
 
                     Intent response = new Intent();
                     response.putStringArrayListExtra("result", pagepath);
@@ -292,29 +286,43 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
             }
         });
 
-        multipages = (Button)findViewById(getResources().getIdentifier("Multipages", "id", getPackageName()));
-        Drawable drawable = getResources().getDrawable(getResources().getIdentifier("ic_multipages", "mipmap", getPackageName()));
+        flash = (Button)findViewById(getResources().getIdentifier("Flash", "id", getPackageName()));
+        Drawable drawable = getResources().getDrawable(getResources().getIdentifier("ic_flash", "mipmap", getPackageName()));
         int color = getResources().getColor(getResources().getIdentifier("gray", "color", getPackageName()));
         drawable.setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN));
-        multipages.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+        flash.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
 
-        multipages.setOnClickListener(new View.OnClickListener(){
+        flash.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                if(!multipaged){
-                    multipages.setTextColor(getResources().getColorStateList(getResources().getIdentifier("red", "color", getPackageName())));
-                    Drawable drawable = getResources().getDrawable(getResources().getIdentifier("ic_multipages", "mipmap", getPackageName()));
+                if(!flashed){
+                    flash.setTextColor(getResources().getColorStateList(getResources().getIdentifier("red", "color", getPackageName())));
+                    Drawable drawable = getResources().getDrawable(getResources().getIdentifier("ic_flash", "mipmap", getPackageName()));
                     int color = getResources().getColor(getResources().getIdentifier("red", "color", getPackageName()));
                     drawable.setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN));
-                    multipages.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
-                    multipaged = true;
+                    flash.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+
+                    camera.stopPreview();
+                    Camera.Parameters parameters = camera.getParameters();
+                    parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+                    camera.setParameters(parameters);
+                    camera.startPreview();
+
+                    flashed = true;
                 } else {
-                    multipages.setTextColor(getResources().getColorStateList(getResources().getIdentifier("gray", "color", getPackageName())));
-                    Drawable drawable = getResources().getDrawable(getResources().getIdentifier("ic_multipages", "mipmap", getPackageName()));
+                    flash.setTextColor(getResources().getColorStateList(getResources().getIdentifier("gray", "color", getPackageName())));
+                    Drawable drawable = getResources().getDrawable(getResources().getIdentifier("ic_flash", "mipmap", getPackageName()));
                     int color = getResources().getColor(getResources().getIdentifier("gray", "color", getPackageName()));
                     drawable.setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN));
-                    multipages.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
-                    multipaged = false;
+                    flash.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+
+                    camera.stopPreview();
+                    Camera.Parameters parameters = camera.getParameters();
+                    parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+                    camera.setParameters(parameters);
+                    camera.startPreview();
+
+                    flashed = false;
                 }
             }
         });
@@ -334,7 +342,6 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
-        //Log.i("XXX", "surface destroyed");
         camera.stopPreview();
         camera.release();
         camera = null;
