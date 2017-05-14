@@ -83,7 +83,6 @@
             android:scaleType="center"
             android:src="@mipmap/ic_camera"
             app:backgroundTint="@color/white"
-            app:rippleColor="@color/white"
             android:tint="@color/colorAccent"
             android:adjustViewBounds="true"/>
     </LinearLayout>
