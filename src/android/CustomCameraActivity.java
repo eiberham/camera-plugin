@@ -229,9 +229,11 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
         cancel.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent result = new Intent();
-                setResult(Activity.RESULT_CANCELED, result);
-                finish();
+                if(deletePictures(pagepath)){
+                    Intent result = new Intent();
+                    setResult(Activity.RESULT_CANCELED, result);
+                    finish();
+                }
             }
         });
 
@@ -318,6 +320,18 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
         }else{
             setPermissions();
         }
+    }
+
+    public boolean deletePictures(ArrayList<String> pictures){
+        boolean ok = true;
+        for(int i = 0; i <= pictures.size(); i++){
+            File file = new File(pictures.get(i));
+            boolean deleted = file.delete();
+            if(!deleted){
+                ok = false;
+            }
+        }
+        return ok;
     }
 
     @Override
