@@ -23,13 +23,14 @@ public class CustomCameraPlugin extends CordovaPlugin{
 
     private static final String CAMERA = "customCamera";
     private static final int GET_PICTURES_REQUEST = 1;
+    private CallbackContext callback;
 
 
     public CustomCameraPlugin() {}
 
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if(action.equals(CAMERA)){
-            //Log.i("XXX", "pasa por camera");
+            this.callback = callbackContext;
 
             class Snapshot implements Runnable {
                 private CallbackContext callback;
