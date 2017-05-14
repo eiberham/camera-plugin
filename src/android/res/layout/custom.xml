@@ -82,8 +82,9 @@
             android:gravity="center_vertical|center_horizontal"
             android:scaleType="center"
             android:src="@mipmap/ic_camera"
+            app:fabSize="normal"
             app:backgroundTint="@color/white"
-            android:tint="@color/colorAccent"
+            android:tint="@color/pink"
             android:adjustViewBounds="true"/>
     </LinearLayout>
     <LinearLayout
