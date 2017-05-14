@@ -7,7 +7,6 @@ import org.json.JSONException;
 import org.apache.cordova.PluginResult;
 import org.apache.cordova.CordovaInterface;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -43,11 +42,8 @@ public class CustomCameraPlugin extends CordovaPlugin{
                     Intent intent = new Intent(self.cordova.getActivity(), CustomCameraActivity.class);
 
                     if(this.self.cordova != null)
-                        this.self.cordova.startActivityForResult((CordovaPlugin)this.self, intent, 1);
+                        this.self.cordova.startActivityForResult((CordovaPlugin)this.self, intent, GET_PICTURES_REQUEST);
 
-                    /*PluginResult r = new PluginResult(PluginResult.Status.OK);
-                    r.setKeepCallback(true);
-                    this.callback.sendPluginResult(r);*/
                 }
             }
 
@@ -59,14 +55,8 @@ public class CustomCameraPlugin extends CordovaPlugin{
         return false;
     }
 
-    private void init(CallbackContext callbackContext){
-
-        
-    }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        // TODO Auto-generated method stub
         super.onActivityResult(requestCode, resultCode, intent);
         
         if (requestCode == GET_PICTURES_REQUEST && callback != null) {

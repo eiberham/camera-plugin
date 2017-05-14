@@ -154,21 +154,6 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
         return Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true);
     }
 
-    public String createDirectories(){
-        String directory = Environment.getExternalStorageDirectory().getAbsolutePath() +
-                NOSCONECTA_FOLDERS;
-        File directories = new File(directory);
-        if(!directories.exists()){
-            if(directories.mkdirs()){
-                return directory;
-            } else {
-                return null;
-            }
-        }
-
-        return directory;
-    }
-
     public void setPermissions(){
         ActivityCompat.requestPermissions(CustomCameraActivity.this, new String[]{
                 Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, NOSCONECTA_CAMERA_PERMISSION);
@@ -187,7 +172,6 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
 
-            Log.i("XXX", "Pasa x aqui");
             if(requestCode == NOSCONECTA_CAMERA_PERMISSION) {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
@@ -217,7 +201,6 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-        Log.i("XXX", "Surface changed event");
         if(previewing){
             camera.stopPreview();
             previewing = false;
@@ -233,8 +216,6 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }else{
-            Log.i("XXX", "camera es null");
         }
     }
 
@@ -251,7 +232,6 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
                 Intent result = new Intent();
                 setResult(Activity.RESULT_CANCELED, result);
                 finish();
-                //System.exit(0);
             }
         });
 
