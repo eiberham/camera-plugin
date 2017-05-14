@@ -41,8 +41,8 @@
         <source-file src="src/android/res/values/dimens.xml" target-dir="res/values"/>
 
         <!-- gradle dependencies -->
-        <!--<framework src="com.android.support:design:25.3.1" />-->
-        <!--<framework src="com.android.support:appcompat-v7:25.3.1" />-->
+        <framework src="com.android.support:design:25.3.1" />
+        <framework src="com.android.support:appcompat-v7:25.3.1" />
         <!--<framework src="com.android.support.constraint:constraint-layout:1.0.2" />-->
 
         <!--  drawable src/android/resources -->
