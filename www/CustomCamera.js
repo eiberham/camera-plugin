@@ -26,9 +26,13 @@ var CustomCameraPlugin =
     /**
      * Open a native built in custom camera
      */
-    init : function()
+    init : function(callbackSuccess, callbackFailure)
     {
-        return exec(null, null, "CustomCameraPlugin", "customCamera", []);
+        return exec(function(response){
+            callbackSuccess(response);
+        }, function(error){
+            callbackFailure(error);
+        }, "CustomCameraPlugin", "customCamera", []);
     }
 }
 

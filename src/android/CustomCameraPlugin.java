@@ -68,12 +68,13 @@ public class CustomCameraPlugin extends CordovaPlugin{
         // TODO Auto-generated method stub
         super.onActivityResult(requestCode, resultCode, intent);
         
-        /*if (requestCode == GET_PICTURES_REQUEST && callback != null) {
+        if (requestCode == GET_PICTURES_REQUEST && callback != null) {
             if (resultCode == cordova.getActivity().RESULT_OK) {
                 Bundle extras = intent.getExtras();
-                //ArrayList<String> result = extras.getStringArrayList("result");
+                ArrayList<String> result = extras.getStringArrayList("result");
+                JSONArray jsArray = new JSONArray(result);
 
-                PluginResult r = new PluginResult(PluginResult.Status.OK);
+                PluginResult r = new PluginResult(PluginResult.Status.OK, jsArray);
                 r.setKeepCallback(true);
                 callback.sendPluginResult(r);
 
@@ -84,8 +85,8 @@ public class CustomCameraPlugin extends CordovaPlugin{
                 callback.sendPluginResult(r);
 
             }
-        }*/
+        }
 
-        resultCode = Activity.RESULT_OK;
+        //resultCode = Activity.RESULT_OK;
     }
 }
