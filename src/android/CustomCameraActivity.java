@@ -304,7 +304,7 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
                     } catch (DocumentException e) {
                         e.printStackTrace();
                     }
-                    Log.i("XXX", pdfpath);
+
                     Intent response = new Intent();
                     response.putExtra("result", pdfpath);
                     setResult(Activity.RESULT_OK, response);
@@ -373,7 +373,7 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
 
     public boolean deletePictures(ArrayList<String> pictures){
         boolean ok = true;
-        for(int i = 0; i <= pictures.size(); i++){
+        for(int i = 0; i <= pictures.size() -1; i++){
             File file = new File(pictures.get(i));
             boolean deleted = file.delete();
             if(!deleted){
