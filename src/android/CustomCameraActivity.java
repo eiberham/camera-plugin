@@ -308,7 +308,7 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
                     Intent response = new Intent();
                     response.putExtra("result", pdfpath);
                     setResult(Activity.RESULT_OK, response);
-                    finish();
+                    //finish();
 
                 } else {
                     finish();
