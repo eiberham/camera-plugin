@@ -4,6 +4,7 @@ import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.apache.cordova.PluginResult;
 import org.apache.cordova.CordovaInterface;
 
@@ -62,10 +63,11 @@ public class CustomCameraPlugin extends CordovaPlugin{
         if (requestCode == GET_PICTURES_REQUEST && callback != null) {
             if (resultCode == cordova.getActivity().RESULT_OK) {
                 Bundle extras = intent.getExtras();
-                String result = extras.getString("result");
-                JSONArray js = new JSONArray(result);
+                //String result = extras.getString("result");
+                JSONObject result = new JSONObject();
+                result.put("result", extras.getString("result"))
 
-                PluginResult r = new PluginResult(PluginResult.Status.OK, js);
+                PluginResult r = new PluginResult(PluginResult.Status.OK, result);
                 r.setKeepCallback(true);
                 callback.sendPluginResult(r);
 
