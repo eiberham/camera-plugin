@@ -169,21 +169,6 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
         return Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true);
     }
 
-    public String createDirectories(){
-        String directory = Environment.getExternalStorageDirectory().getAbsolutePath() +
-                NOSCONECTA_FOLDERS;
-        File directories = new File(directory);
-        if(!directories.exists()){
-            if(directories.mkdirs()){
-                return directory;
-            } else {
-                return null;
-            }
-        }
-
-        return directory;
-    }
-
     public void setPermissions(){
         ActivityCompat.requestPermissions(CustomCameraActivity.this, new String[]{
                 Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, NOSCONECTA_CAMERA_PERMISSION);
@@ -202,13 +187,10 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
 
-            Log.i("XXX", "Pasa x aqui");
             if(requestCode == NOSCONECTA_CAMERA_PERMISSION) {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    Log.i("XXX", "tmb Pasa x aqui");
 
                     camera = Camera.open(CAMERA_ID);
                     try {
@@ -235,7 +217,6 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-        Log.i("XXX", "Surface changed event");
         if(previewing){
             camera.stopPreview();
             previewing = false;
@@ -261,7 +242,6 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-        Log.i("XXX", "Surface created");
 
         progress = (LinearLayout)findViewById(getResources().getIdentifier("progressbar", "id", getPackageName()));
 
@@ -293,8 +273,6 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
             @Override
             public void onClick(View v) {
                 if(pagepath.size() > 0){
-                    Toast.makeText(getBaseContext(),"GENERA PDF Y PASA AL PREVISUALIZADOR",
-                            Toast.LENGTH_LONG).show();
                     String pdfpath = null;
                     try {
                         pdfpath = createPdf();
