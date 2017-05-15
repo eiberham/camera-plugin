@@ -7,8 +7,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.math.BigInteger;
+import java.net.URL;
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.List;
+
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
@@ -27,6 +30,7 @@ import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
@@ -39,6 +43,15 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.Document;
+
+import org.json.JSONArray;
 
 public class CustomCameraActivity extends Activity implements SurfaceHolder.Callback {
 
@@ -61,6 +74,8 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
 
     private static final int NOSCONECTA_CAMERA_PERMISSION = 1;
     private static final int CAMERA_ID = 0;
+    private static final int CAMERA_DEFAULT_WIDTH = 640;
+    private static final int CAMERA_DEFAULT_HEIGHT = 480;
     private static final String NOSCONECTA_FOLDERS = "/NosConecta/Photos/";
 
     @Override
@@ -154,6 +169,21 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
         return Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true);
     }
 
+    public String createDirectories(){
+        String directory = Environment.getExternalStorageDirectory().getAbsolutePath() +
+                NOSCONECTA_FOLDERS;
+        File directories = new File(directory);
+        if(!directories.exists()){
+            if(directories.mkdirs()){
+                return directory;
+            } else {
+                return null;
+            }
+        }
+
+        return directory;
+    }
+
     public void setPermissions(){
         ActivityCompat.requestPermissions(CustomCameraActivity.this, new String[]{
                 Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, NOSCONECTA_CAMERA_PERMISSION);
@@ -172,6 +202,7 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
 
+            Log.i("XXX", "Pasa x aqui");
             if(requestCode == NOSCONECTA_CAMERA_PERMISSION) {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
@@ -182,6 +213,9 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
                     camera = Camera.open(CAMERA_ID);
                     try {
                         camera.setDisplayOrientation(90);
+                        Camera.Parameters parameters = camera.getParameters();
+                        parameters.setPictureSize(CAMERA_DEFAULT_WIDTH, CAMERA_DEFAULT_HEIGHT);
+                        camera.setParameters(parameters);
                         camera.setPreviewDisplay(surfaceHolder);
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -201,6 +235,7 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+        Log.i("XXX", "Surface changed event");
         if(previewing){
             camera.stopPreview();
             previewing = false;
@@ -209,6 +244,9 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
         if (camera != null){
             try {
                 camera.setDisplayOrientation(90);
+                Camera.Parameters parameters = camera.getParameters();
+                parameters.setPictureSize(CAMERA_DEFAULT_WIDTH, CAMERA_DEFAULT_HEIGHT);
+                camera.setParameters(parameters);
                 camera.setPreviewDisplay(surfaceHolder);
                 camera.startPreview();
 
@@ -216,6 +254,8 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }else{
+            Log.i("XXX", "camera es null");
         }
     }
 
@@ -255,9 +295,18 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
                 if(pagepath.size() > 0){
                     Toast.makeText(getBaseContext(),"GENERA PDF Y PASA AL PREVISUALIZADOR",
                             Toast.LENGTH_LONG).show();
+                    String pdfpath = null;
+                    try {
+                        pdfpath = createPdf();
+                        deletePictures(pagepath);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (DocumentException e) {
+                        e.printStackTrace();
+                    }
 
                     Intent response = new Intent();
-                    response.putStringArrayListExtra("result", pagepath);
+                    response.putExtra("result", pdfpath);
                     setResult(Activity.RESULT_OK, response);
                     finish();
 
@@ -341,5 +390,48 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
         camera = null;
 
         previewing = false;
+    }
+
+    private String createPdf() throws FileNotFoundException, DocumentException {
+        SecureRandom sRand = new SecureRandom();
+        String filename = new BigInteger(130, sRand).toString(32) + ".pdf";
+        String target_path = Environment.getExternalStorageDirectory().getAbsolutePath() +
+                NOSCONECTA_FOLDERS + filename;
+
+        File myFile = new File(target_path);
+
+        OutputStream output = new FileOutputStream(myFile);
+
+        //Step 1
+        Document document = new Document();
+
+        //Step 2
+        try {
+            PdfWriter.getInstance(document, output);
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
+
+        //Step 3
+        document.open();
+        
+
+        for(int i = 0; i <= pagepath.size() -1; i ++){
+
+            try {
+                Image image = Image.getInstance(pagepath.get(i));
+                image.setAlignment(Image.MIDDLE);
+                image.scaleToFit((PageSize.A4.getWidth() -25), (PageSize.A4.getHeight()-25));
+                document.add(image);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            document.newPage();
+        }
+
+        //Step 5: Close the document
+        document.close();
+
+        return target_path;
     }
 }
