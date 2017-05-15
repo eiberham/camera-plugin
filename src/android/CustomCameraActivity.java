@@ -273,9 +273,9 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
             @Override
             public void onClick(View v) {
                 if(pagepath.size() > 0){
-                    String pdfpath = null;
+                    String pdfpath = "file://";
                     try {
-                        pdfpath = createPdf();
+                        pdfpath += createPdf();
                         deletePictures(pagepath);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
