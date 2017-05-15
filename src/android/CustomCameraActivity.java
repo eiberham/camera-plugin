@@ -304,7 +304,7 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
                     } catch (DocumentException e) {
                         e.printStackTrace();
                     }
-
+                    Log.i("XXX", pdfpath);
                     Intent response = new Intent();
                     response.putExtra("result", pdfpath);
                     setResult(Activity.RESULT_OK, response);
