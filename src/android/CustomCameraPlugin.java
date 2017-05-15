@@ -69,9 +69,11 @@ public class CustomCameraPlugin extends CordovaPlugin{
                 Bundle extras = intent.getExtras();
                 String result = extras.getString("result");
                 
-                PluginResult r = new PluginResult(PluginResult.Status.OK, result);
+                /*PluginResult r = new PluginResult(PluginResult.Status.OK, result);
                 r.setKeepCallback(true);
-                callback.sendPluginResult(r);
+                callback.sendPluginResult(r);*/
+
+                callback.success(result);
 
             } else {
 
