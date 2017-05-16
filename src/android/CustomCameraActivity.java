@@ -183,10 +183,12 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
 
     public boolean hasPermissions(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Log.i("XXX", "Es mayor o igual a LOLIPOP");
             return (ActivityCompat.checkSelfPermission(CustomCameraActivity.this, Manifest.permission.CAMERA) +
                     ActivityCompat.checkSelfPermission(CustomCameraActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     != PackageManager.PERMISSION_GRANTED) ? false : true;
         } else {
+            Log.i("XXX", "Es menor a LOLIPOP");
             return true;
         }
     }
@@ -355,6 +357,7 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
         }
 
         if(hasPermissions()){
+            Log.i("XXX", "Tiene permisos");
             try{
                 if(camera == null) {
                     camera = Camera.open(Camera.CameraInfo.CAMERA_FACING_BACK);
@@ -385,12 +388,14 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
-        Log.i("XXX", "Surface destroyed!");
-        camera.stopPreview();
-        camera.release();
-        camera = null;
+        Log.i("XXX", "Surface destroyed !!");
+        if(camera != null){
+            camera.stopPreview();
+            camera.release();
+            camera = null;
 
-        previewing = false;
+            previewing = false;
+        }
     }
 
     private String createPdf() throws FileNotFoundException, DocumentException {
