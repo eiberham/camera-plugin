@@ -351,7 +351,9 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
 
         if(hasPermissions()){
             try{
-                camera = Camera.open(Camera.CameraInfo.CAMERA_FACING_BACK);
+                if(camera == null) {
+                    camera = Camera.open(Camera.CameraInfo.CAMERA_FACING_BACK);
+                }
             }catch (Exception e){
                 Log.i("XXX", "Excepcion camara 2");
                 e.printStackTrace();
