@@ -359,6 +359,8 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
                     parameters.setFocusMode(parameters.FOCUS_MODE_AUTO);
                     camera.setParameters(parameters);
                     camera.startPreview();
+                } else {
+                    Log.i("XXX", "La camara es null :(");
                 }
             }catch (Exception e){
                 Log.i("XXX", "Excepcion camara 2");
