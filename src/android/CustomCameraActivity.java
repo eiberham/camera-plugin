@@ -353,10 +353,12 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
             try{
                 if(camera == null) {
                     camera = Camera.open(Camera.CameraInfo.CAMERA_FACING_BACK);
-                }else{
-                    camera.release();
-                    camera = null;
-                    camera = Camera.open(Camera.CameraInfo.CAMERA_FACING_BACK);
+                    camera.setDisplayOrientation(90);
+                    Camera.Parameters parameters = camera.getParameters();
+                    parameters.setPictureSize(CAMERA_DEFAULT_WIDTH, CAMERA_DEFAULT_HEIGHT);
+                    parameters.setFocusMode(parameters.FOCUS_MODE_AUTO);
+                    camera.setParameters(parameters);
+                    camera.startPreview();
                 }
             }catch (Exception e){
                 Log.i("XXX", "Excepcion camara 2");
