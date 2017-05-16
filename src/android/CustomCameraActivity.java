@@ -55,7 +55,7 @@ import org.json.JSONArray;
 
 public class CustomCameraActivity extends Activity implements SurfaceHolder.Callback {
 
-    Camera camera;
+    static Camera camera;
     SurfaceView surfaceView;
     SurfaceHolder surfaceHolder;
     boolean previewing = false;
