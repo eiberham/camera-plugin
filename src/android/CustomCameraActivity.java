@@ -98,6 +98,7 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
         LayoutParams layoutParamsControl = new LayoutParams(LayoutParams.FILL_PARENT,
                 LayoutParams.FILL_PARENT);
         this.addContentView(viewControl, layoutParamsControl);
+        Log.i("XXX", "Terminó el onCreate :)");
     }
 
 
