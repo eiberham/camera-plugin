@@ -358,6 +358,7 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
                     parameters.setPictureSize(CAMERA_DEFAULT_WIDTH, CAMERA_DEFAULT_HEIGHT);
                     parameters.setFocusMode(parameters.FOCUS_MODE_AUTO);
                     camera.setParameters(parameters);
+                    camera.setPreviewDisplay(surfaceHolder);
                     camera.startPreview();
                 } else {
                     camera.release();
@@ -368,6 +369,7 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
                     parameters.setPictureSize(CAMERA_DEFAULT_WIDTH, CAMERA_DEFAULT_HEIGHT);
                     parameters.setFocusMode(parameters.FOCUS_MODE_AUTO);
                     camera.setParameters(parameters);
+                    camera.setPreviewDisplay(surfaceHolder);
                     camera.startPreview();
                 }
             }catch (Exception e){
