@@ -224,6 +224,7 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+        Log.i("XXX", "surface changed !!");
         if(previewing){
             camera.stopPreview();
             previewing = false;
@@ -249,7 +250,7 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-
+        Log.i("XXX", "Surface created!! ");
         progress = (LinearLayout)findViewById(getResources().getIdentifier("progressbar", "id", getPackageName()));
 
         cancel = (Button)findViewById(getResources().getIdentifier("Cancel", "id", getPackageName()));
@@ -354,7 +355,7 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
                 if(camera == null) {
                     camera = Camera.open(Camera.CameraInfo.CAMERA_FACING_BACK);
                 } else {
-                    camera.release();
+                    Log.i("XXX", "camara No es null ya esta seteada");
                 }
             }catch (Exception e){
                 Log.i("XXX", "Excepcion camara 2");
@@ -380,6 +381,7 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
+        Log.i("XXX", "Surface destroyed!");
         camera.stopPreview();
         camera.release();
         camera = null;
