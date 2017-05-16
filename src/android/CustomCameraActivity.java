@@ -101,6 +101,23 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
         Log.i("XXX", "Terminó el onCreate :)");
     }
 
+     @Override
+    protected void onPause() {
+        /*if (camera != null) {
+            camera.stopPreview();
+            camera.release();
+            camera = null;
+        }*/
+        Log.i("XXX", "Se puso en pausa");
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        Log.i("XXX", "Se puso en resumen :)");
+    }
+
 
     Camera.ShutterCallback shutterCallback = new Camera.ShutterCallback() {
         public void onShutter() {
