@@ -30,6 +30,7 @@ import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Build;
 
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
@@ -181,10 +182,13 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
     }
 
     public boolean hasPermissions(){
-
-        return (ActivityCompat.checkSelfPermission(CustomCameraActivity.this, Manifest.permission.CAMERA) +
-                ActivityCompat.checkSelfPermission(CustomCameraActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) ? false : true;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            return (ActivityCompat.checkSelfPermission(CustomCameraActivity.this, Manifest.permission.CAMERA) +
+                    ActivityCompat.checkSelfPermission(CustomCameraActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) ? false : true;
+        } else {
+            return true;
+        }
     }
 
 
