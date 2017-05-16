@@ -198,14 +198,15 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    camera = Camera.open(CAMERA_ID);
                     try {
+                        camera = Camera.open(CAMERA_ID);
                         camera.setDisplayOrientation(90);
                         Camera.Parameters parameters = camera.getParameters();
                         parameters.setPictureSize(CAMERA_DEFAULT_WIDTH, CAMERA_DEFAULT_HEIGHT);
                         camera.setParameters(parameters);
                         camera.setPreviewDisplay(surfaceHolder);
                     } catch (IOException e) {
+                        Log.i("XXX", "Excepcion camara 1");
                         e.printStackTrace();
                     }
                     camera.startPreview();
@@ -349,7 +350,13 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
         }
 
         if(hasPermissions()){
-            camera = Camera.open(CAMERA_ID);
+            try{
+                camera = Camera.open(CAMERA_ID);
+            }catch (Exception e){
+                Log.i("XXX", "Excepcion camara 2");
+                e.printStackTrace();
+            }
+            
         }else{
             setPermissions();
         }
