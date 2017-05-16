@@ -74,8 +74,8 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
 
     private static final int NOSCONECTA_CAMERA_PERMISSION = 1;
     private static final int CAMERA_ID = 0;
-    private static final int CAMERA_DEFAULT_WIDTH = 640;
-    private static final int CAMERA_DEFAULT_HEIGHT = 480;
+    private static final int CAMERA_DEFAULT_WIDTH = 1280;
+    private static final int CAMERA_DEFAULT_HEIGHT = 720;
     private static final String NOSCONECTA_FOLDERS = "/NosConecta/Photos/";
 
     @Override
@@ -124,10 +124,16 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
                 Camera.getCameraInfo(CAMERA_ID, info);
                 Bitmap bitmap = rotate(photo, info.orientation);
 
+                File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() +
+                        NOSCONECTA_FOLDERS);
+
+                if(!dir.exists()) {
+                    dir.mkdirs();
+                }
+
                 SecureRandom sRand = new SecureRandom();
                 String filename = new BigInteger(130, sRand).toString(32) + ".jpg";
-                String filepath = Environment.getExternalStorageDirectory().getAbsolutePath() +
-                        NOSCONECTA_FOLDERS + filename;
+                String filepath = dir.getAbsolutePath() + filename;
                 
                 OutputStream stream = new FileOutputStream(filepath);
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
