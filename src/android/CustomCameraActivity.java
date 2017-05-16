@@ -121,7 +121,7 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
             Bitmap photo = BitmapFactory.decodeStream(new ByteArrayInputStream(data), null, bfo);
             try {
                 Camera.CameraInfo info = new Camera.CameraInfo();
-                Camera.getCameraInfo(CAMERA_ID, info);
+                Camera.getCameraInfo(Camera.CameraInfo.CAMERA_FACING_BACK, info);
                 Bitmap bitmap = rotate(photo, info.orientation);
 
                 File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() +
@@ -199,7 +199,7 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
                     try {
-                        camera = Camera.open(CAMERA_ID);
+                        camera = Camera.open(Camera.CameraInfo.CAMERA_FACING_BACK);
                         camera.setDisplayOrientation(90);
                         Camera.Parameters parameters = camera.getParameters();
                         parameters.setPictureSize(CAMERA_DEFAULT_WIDTH, CAMERA_DEFAULT_HEIGHT);
@@ -351,7 +351,7 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
 
         if(hasPermissions()){
             try{
-                camera = Camera.open(CAMERA_ID);
+                camera = Camera.open(Camera.CameraInfo.CAMERA_FACING_BACK);
             }catch (Exception e){
                 Log.i("XXX", "Excepcion camara 2");
                 e.printStackTrace();
