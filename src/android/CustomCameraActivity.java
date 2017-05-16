@@ -177,8 +177,11 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
     }
 
     public void setPermissions(){
-        ActivityCompat.requestPermissions(CustomCameraActivity.this, new String[]{
+        Log.i("XXX", "pasa por SetPermissions");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            ActivityCompat.requestPermissions(CustomCameraActivity.this, new String[]{
                 Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, NOSCONECTA_CAMERA_PERMISSION);
+        }
     }
 
     public boolean hasPermissions(){
