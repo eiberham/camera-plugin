@@ -41,7 +41,7 @@ public class CustomCameraPlugin extends CordovaPlugin{
                 }
                 public void run(){
                     Intent intent = new Intent(self.cordova.getActivity(), CustomCameraActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     if(this.self.cordova != null)
                         this.self.cordova.startActivityForResult((CordovaPlugin)this.self, intent, GET_PICTURES_REQUEST);
 
@@ -61,7 +61,7 @@ public class CustomCameraPlugin extends CordovaPlugin{
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
         Log.i("XXX", "Pasa por activityResult");
         Log.i("XXX", "resultok: " + cordova.getActivity().RESULT_OK);
