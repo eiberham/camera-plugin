@@ -254,6 +254,7 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
         Log.i("XXX", "surface changed !!");
         if(previewing){
+            Log.i("XXX", "previewing en surfaceChanged es true");
             camera.stopPreview();
             previewing = false;
         }
@@ -264,7 +265,7 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
                 Camera.Parameters parameters = camera.getParameters();
                 parameters.setPictureSize(CAMERA_DEFAULT_WIDTH, CAMERA_DEFAULT_HEIGHT);
                 camera.setParameters(parameters);
-                camera.setPreviewDisplay(surfaceHolder);
+                camera.setPreviewDisplay(holder);
                 camera.startPreview();
 
                 previewing = true;
