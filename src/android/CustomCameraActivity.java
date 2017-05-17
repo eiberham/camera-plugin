@@ -103,13 +103,13 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
 
      @Override
     protected void onPause() {
-        /*if (camera != null) {
+        super.onPause();
+        if (camera != null) {
             camera.stopPreview();
             camera.release();
             camera = null;
-        }*/
+        }
         Log.i("XXX", "Se puso en pausa");
-        super.onPause();
     }
 
     @Override
