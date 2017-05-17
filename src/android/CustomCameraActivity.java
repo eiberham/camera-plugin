@@ -98,31 +98,26 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
         LayoutParams layoutParamsControl = new LayoutParams(LayoutParams.FILL_PARENT,
                 LayoutParams.FILL_PARENT);
         this.addContentView(viewControl, layoutParamsControl);
-        Log.i("XXX", "Terminó el onCreate :)");
     }
 
      @Override
     protected void onPause() {
         super.onPause();
         if (camera != null) {
-            Log.i("XXX", "camara no es null y estoy en pause");
             camera.stopPreview();
             camera.release();
             camera = null;
             previewing = false;
         }
-        Log.i("XXX", "Se puso en pausa");
     }
 
     @Override
     protected void onResume(){
         super.onResume();
         if (camera != null) {
-            Log.i("XXX", "camara no es null y estoy en resume");
             camera.startPreview();
             previewing = true;
         }
-        Log.i("XXX", "Se puso en resumen :)");
     }
 
 
@@ -202,7 +197,6 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
     }
 
     public void setPermissions(){
-        Log.i("XXX", "pasa por SetPermissions");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             ActivityCompat.requestPermissions(CustomCameraActivity.this, new String[]{
                 Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, NOSCONECTA_CAMERA_PERMISSION);
@@ -211,12 +205,10 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
 
     public boolean hasPermissions(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Log.i("XXX", "Es mayor o igual a LOLIPOP");
             return (ActivityCompat.checkSelfPermission(CustomCameraActivity.this, Manifest.permission.CAMERA) +
                     ActivityCompat.checkSelfPermission(CustomCameraActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     != PackageManager.PERMISSION_GRANTED) ? false : true;
         } else {
-            Log.i("XXX", "Es menor a LOLIPOP");
             return true;
         }
     }
@@ -240,7 +232,6 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
                         camera.setParameters(parameters);
                         camera.setPreviewDisplay(surfaceHolder);
                     } catch (IOException e) {
-                        Log.i("XXX", "Excepcion camara 1");
                         e.printStackTrace();
                     }
                     camera.startPreview();
@@ -258,9 +249,7 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-        Log.i("XXX", "surface changed !!");
         if(previewing){
-            Log.i("XXX", "previewing en surfaceChanged es true");
             camera.stopPreview();
             previewing = false;
         }
@@ -278,14 +267,11 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }else{
-            Log.i("XXX", "camera es null");
         }
     }
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-        Log.i("XXX", "Surface created!! ");
         progress = (LinearLayout)findViewById(getResources().getIdentifier("progressbar", "id", getPackageName()));
 
         cancel = (Button)findViewById(getResources().getIdentifier("Cancel", "id", getPackageName()));
@@ -326,8 +312,6 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
                         e.printStackTrace();
                     }
 
-                    Log.i("XXX", "Respondo ok y devuelvo el path del PDF");
-                    Log.i("XXX", "Activity.ResultOk: " + Activity.RESULT_OK);
                     Intent response = new Intent();
                     response.putExtra("result", pdfpath);
                     setResult(Activity.RESULT_OK, response);
@@ -335,7 +319,6 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
 
                 } else {
                     finish();
-                    //startActivity(getIntent());
                 }
             }
         });
@@ -388,19 +371,11 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
         }
 
         if(hasPermissions()){
-            Log.i("XXX", "Tiene permisos");
             try{
                 if(camera == null) {
-                    
                     camera = Camera.open(Camera.CameraInfo.CAMERA_FACING_BACK);
-                    Log.i("XXX", "Ahora abrió la camara :)");
-
-                } else {
-                    Log.i("XXX", "camara No es null ya esta seteada");
                 }
             }catch (Exception e){
-                Log.i("XXX", e.getMessage());
-                Log.i("XXX", "Excepcion camara 2");
                 e.printStackTrace();
             }
             
@@ -423,7 +398,6 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
-        Log.i("XXX", "Surface destroyed !!");
         if(camera != null){
             camera.stopPreview();
             camera.release();

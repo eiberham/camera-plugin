@@ -33,7 +33,6 @@ public class CustomCameraPlugin extends CordovaPlugin{
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if(action.equals(CAMERA)){
             this.callback = callbackContext;
-            Log.i("XXX", "Llamado a execute en el plugin");
             class Snapshot implements Runnable {
                 private CallbackContext callback;
                 private CustomCameraPlugin self;
@@ -43,8 +42,6 @@ public class CustomCameraPlugin extends CordovaPlugin{
                 }
                 public void run(){
                     Intent intent = new Intent(self.cordova.getActivity(), CustomCameraActivity.class);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                    Log.i("XXX", "iniciar Activity");
                     if(this.self.cordova != null){
                         this.self.cordova.startActivityForResult((CordovaPlugin)this.self, intent, GET_PICTURES_REQUEST);
                     }
@@ -70,28 +67,19 @@ public class CustomCameraPlugin extends CordovaPlugin{
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
-        Log.i("XXX", "Pasa por activityResult");
-        Log.i("XXX", "resultok: " + cordova.getActivity().RESULT_OK);
-        Log.i("XXX", "resultCode" + resultCode);
-        
         
         if (requestCode == GET_PICTURES_REQUEST && callback != null) {
             if (resultCode == cordova.getActivity().RESULT_OK) {
-                Log.i("XXX", "Responde OK");
                 Bundle extras = intent.getExtras();
-                String result = extras.getString("result"); Log.i("XXX", "Responde success");
+                String result = extras.getString("result");
                 callback.success(result);
 
             } else {
-                Log.i("XXX", "Responde failure");
                 PluginResult r = new PluginResult(PluginResult.Status.OK);
                 r.setKeepCallback(true);
                 callback.sendPluginResult(r);
 
             }
         }
-        
-
-        //resultCode = Activity.RESULT_OK;
     }
 }
