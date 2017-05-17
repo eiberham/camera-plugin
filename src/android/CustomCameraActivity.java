@@ -318,6 +318,7 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
                         e.printStackTrace();
                     }
 
+                    Log.i("XXX", "Respondo ok y devuelvo el path del PDF");
                     Intent response = new Intent();
                     response.putExtra("result", pdfpath);
                     setResult(Activity.RESULT_OK, response);
