@@ -327,7 +327,7 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
 
                 } else {
                     finish();
-                    startActivity(getIntent());
+                    //startActivity(getIntent());
                 }
             }
         });
