@@ -37,33 +37,29 @@ public class CustomCameraPlugin extends CordovaPlugin{
             class Snapshot implements Runnable {
                 private CallbackContext callback;
                 private CustomCameraPlugin self;
-                private boolean running;
-                Snapshot(CallbackContext callbackContext, CustomCameraPlugin self, boolean running){
+                Snapshot(CallbackContext callbackContext, CustomCameraPlugin self){
                     this.callback = callbackContext;
                     this.self     = self;
-                    this.running  = running; 
                 }
                 public void run(){
                     Intent intent = new Intent(self.cordova.getActivity(), CustomCameraActivity.class);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     Log.i("XXX", "iniciar Activity");
                     if(this.self.cordova != null){
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            if(!this.running){
-                                this.self.cordova.startActivityForResult((CordovaPlugin)this.self, intent, GET_PICTURES_REQUEST);
-                                this.running = true;
-                            }
-                        } else {
-                            this.self.cordova.startActivityForResult((CordovaPlugin)this.self, intent, GET_PICTURES_REQUEST);
-                        }
-                        
-
+                        this.self.cordova.startActivityForResult((CordovaPlugin)this.self, intent, GET_PICTURES_REQUEST);
                     }
 
                 }
             }
 
-            this.cordova.getActivity().runOnUiThread(new Snapshot(callbackContext, this));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                this.cordova.getActivity().runOnUiThread(new Snapshot(callbackContext, this));
+            }else{
+                if(!this.running){
+                    this.cordova.getActivity().runOnUiThread(new Snapshot(callbackContext, this));
+                    this.running = true;
+                }
+            }
 
             return true;
         }
