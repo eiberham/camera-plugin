@@ -105,10 +105,11 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
     protected void onPause() {
         super.onPause();
         if (camera != null) {
-            Log.i("XXX", "camara es null y estoy en pause");
+            Log.i("XXX", "camara no es null y estoy en pause");
             camera.stopPreview();
             camera.release();
             camera = null;
+            previewing = false;
         }
         Log.i("XXX", "Se puso en pausa");
     }
@@ -116,6 +117,11 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
     @Override
     protected void onResume(){
         super.onResume();
+        if (camera != null) {
+            Log.i("XXX", "camara no es null y estoy en resume");
+            camera.startPreview();
+            previewing = true;
+        }
         Log.i("XXX", "Se puso en resumen :)");
     }
 
@@ -253,7 +259,7 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
         Log.i("XXX", "surface changed !!");
-        /*if(previewing){
+        if(previewing){
             Log.i("XXX", "previewing en surfaceChanged es true");
             camera.stopPreview();
             previewing = false;
@@ -274,7 +280,7 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
             }
         }else{
             Log.i("XXX", "camera es null");
-        }*/
+        }
     }
 
     @Override
