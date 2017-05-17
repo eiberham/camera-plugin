@@ -25,7 +25,7 @@ public class CustomCameraPlugin extends CordovaPlugin{
     private static final String CAMERA = "customCamera";
     private static final int GET_PICTURES_REQUEST = 1;
     private CallbackContext callback;
-    private running = false;
+    private boolean running = false;
 
 
     public CustomCameraPlugin() {}
