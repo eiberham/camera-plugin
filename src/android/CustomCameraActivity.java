@@ -404,7 +404,6 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
             camera = null;
 
             previewing = false;
-            running = false;
         }
     }
 
