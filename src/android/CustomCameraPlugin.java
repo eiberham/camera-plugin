@@ -42,6 +42,7 @@ public class CustomCameraPlugin extends CordovaPlugin{
                 public void run(){
                     Intent intent = new Intent(self.cordova.getActivity(), CustomCameraActivity.class);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    Log.i("XXX", "iniciar Activity");
                     if(this.self.cordova != null)
                         this.self.cordova.startActivityForResult((CordovaPlugin)this.self, intent, GET_PICTURES_REQUEST);
 
