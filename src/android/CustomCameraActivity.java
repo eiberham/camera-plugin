@@ -105,6 +105,7 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
     protected void onPause() {
         super.onPause();
         if (camera != null) {
+            Log.i("XXX", "camara es null y estoy en pause");
             camera.stopPreview();
             camera.release();
             camera = null;
