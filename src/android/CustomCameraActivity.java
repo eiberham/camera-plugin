@@ -253,7 +253,7 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
         Log.i("XXX", "surface changed !!");
-        if(previewing){
+        /*if(previewing){
             Log.i("XXX", "previewing en surfaceChanged es true");
             camera.stopPreview();
             previewing = false;
@@ -274,7 +274,7 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
             }
         }else{
             Log.i("XXX", "camera es null");
-        }
+        }*/
     }
 
     @Override
