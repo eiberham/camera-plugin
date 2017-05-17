@@ -31,7 +31,7 @@ public class CustomCameraPlugin extends CordovaPlugin{
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if(action.equals(CAMERA)){
             this.callback = callbackContext;
-
+            Log.i("XXX", "Llamado a execute en el plugin");
             class Snapshot implements Runnable {
                 private CallbackContext callback;
                 private CustomCameraPlugin self;
