@@ -319,6 +319,7 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
                     }
 
                     Log.i("XXX", "Respondo ok y devuelvo el path del PDF");
+                    Log.i("XXX", "Activity.ResultOk: " + Activity.RESULT_OK);
                     Intent response = new Intent();
                     response.putExtra("result", pdfpath);
                     setResult(Activity.RESULT_OK, response);
