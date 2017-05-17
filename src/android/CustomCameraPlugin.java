@@ -10,6 +10,7 @@ import org.apache.cordova.CordovaInterface;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Build;
 import android.widget.Toast;
 import android.app.Activity;
 import android.util.Log;
@@ -24,6 +25,7 @@ public class CustomCameraPlugin extends CordovaPlugin{
     private static final String CAMERA = "customCamera";
     private static final int GET_PICTURES_REQUEST = 1;
     private CallbackContext callback;
+    private running = false;
 
 
     public CustomCameraPlugin() {}
@@ -35,16 +37,28 @@ public class CustomCameraPlugin extends CordovaPlugin{
             class Snapshot implements Runnable {
                 private CallbackContext callback;
                 private CustomCameraPlugin self;
-                Snapshot(CallbackContext callbackContext, CustomCameraPlugin self){
+                private running;
+                Snapshot(CallbackContext callbackContext, CustomCameraPlugin self, boolean running){
                     this.callback = callbackContext;
                     this.self     = self;
+                    this.running  = running; 
                 }
                 public void run(){
                     Intent intent = new Intent(self.cordova.getActivity(), CustomCameraActivity.class);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     Log.i("XXX", "iniciar Activity");
-                    if(this.self.cordova != null)
-                        this.self.cordova.startActivityForResult((CordovaPlugin)this.self, intent, GET_PICTURES_REQUEST);
+                    if(this.self.cordova != null){
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            if(!this.running){
+                                this.self.cordova.startActivityForResult((CordovaPlugin)this.self, intent, GET_PICTURES_REQUEST);
+                                this.running = true;
+                            }
+                        } else {
+                            this.self.cordova.startActivityForResult((CordovaPlugin)this.self, intent, GET_PICTURES_REQUEST);
+                        }
+                        
+
+                    }
 
                 }
             }
