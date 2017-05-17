@@ -61,7 +61,7 @@ public class CustomCameraPlugin extends CordovaPlugin{
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
         Log.i("XXX", "Pasa por activityResult");
         Log.i("XXX", "resultok: " + cordova.getActivity().RESULT_OK);
