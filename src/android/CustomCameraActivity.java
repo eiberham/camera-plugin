@@ -386,6 +386,7 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
                 if(camera == null) {
                     
                     camera = Camera.open(Camera.CameraInfo.CAMERA_FACING_BACK);
+                    Log.i("XXX", "Ahora abrió la camara :)");
 
                 } else {
                     Log.i("XXX", "camara No es null ya esta seteada");
