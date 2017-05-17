@@ -37,7 +37,7 @@ public class CustomCameraPlugin extends CordovaPlugin{
             class Snapshot implements Runnable {
                 private CallbackContext callback;
                 private CustomCameraPlugin self;
-                private running;
+                private boolean running;
                 Snapshot(CallbackContext callbackContext, CustomCameraPlugin self, boolean running){
                     this.callback = callbackContext;
                     this.self     = self;
