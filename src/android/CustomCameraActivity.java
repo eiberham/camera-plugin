@@ -384,6 +384,10 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
             try{
                 if(camera == null) {
                     camera = Camera.open(Camera.CameraInfo.CAMERA_FACING_BACK);
+                    Camera.Parameters parameters = camera.getParameters();
+                    parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+                    camera.setParameters(parameters);
+                    camera.startPreview();
                 } else {
                     Log.i("XXX", "camara No es null ya esta seteada");
                 }
