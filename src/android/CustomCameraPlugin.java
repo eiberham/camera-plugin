@@ -59,15 +59,16 @@ public class CustomCameraPlugin extends CordovaPlugin{
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
-        
+        Log.i("XXX", "Pasa por activityResult");
         if (requestCode == GET_PICTURES_REQUEST && callback != null) {
             if (resultCode == cordova.getActivity().RESULT_OK) {
+                Log.i("XXX", "Responde OK");
                 Bundle extras = intent.getExtras();
                 String result = extras.getString("result"); Log.i("XXX", "Responde success");
                 callback.success(result);
 
             } else {
-
+                Log.i("XXX", "Responde failure");
                 PluginResult r = new PluginResult(PluginResult.Status.OK);
                 r.setKeepCallback(true);
                 callback.sendPluginResult(r);
