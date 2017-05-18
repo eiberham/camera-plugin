@@ -68,7 +68,7 @@ public class CustomCameraPlugin extends CordovaPlugin{
             Log.i("XXX", "data: " + jsArr);
 
 
-            PluginResult r = new PluginResult(PluginResult.Status.OK, jsArr);
+            PluginResult r = new PluginResult(PluginResult.Status.OK);
             r.setKeepCallback(true);
             callbackContext.sendPluginResult(r);
 
