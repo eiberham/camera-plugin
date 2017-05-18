@@ -19,6 +19,7 @@ import android.content.Context;
 import java.io.FileNotFoundException;
 import com.itextpdf.text.DocumentException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 
 public class CustomCameraPlugin extends CordovaPlugin{
