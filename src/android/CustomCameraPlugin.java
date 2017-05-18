@@ -64,8 +64,8 @@ public class CustomCameraPlugin extends CordovaPlugin{
 
             return true;
         } else if(action.equals(IMAGES)){
-            Log.i("XXX", "Pasa por imágenes");
-            try {
+            
+            try{
                 JSONObject json = args.getJSONObject(0);
                 Iterator<String> iter = json.keys();
                 while(iter.hasNext()){
@@ -73,56 +73,32 @@ public class CustomCameraPlugin extends CordovaPlugin{
                     try{
                         JSONArray value = json.getJSONArray(key);
                         for(int i = 0; i < value.length(); i ++){
-                            Log.i("XXX", value.getString(i));
+                            this.images.add(value.getString(i));
                         }
                     }catch(JSONException e){
                         Log.i("XXX", "Excepcion iterador");
                         e.printStackTrace();
                     }
                 }
-                //JSONObject images = json.has("images") ? json.getJSONObject("images") : null;
-                /*for(int i=0; i<json.length(); i++){
-                    String data = json.getString(i);
-                    Log.i("data: ",data);
-                }*/
-            }catch(Exception e){
-                Log.i("XXX", "Error");
+
+                ImagesManager im = new ImagesManager(this.pagepath);
+                String pdfPath = im.createPdf();
+
+                PluginResult r = new PluginResult(PluginResult.Status.OK, pdfPath);
+                r.setKeepCallback(true);
+                callbackContext.sendPluginResult(r);
+
+            } catch (FileNotFoundException e) {
+                Log.i("XXX", "FileNotFound");
+                e.printStackTrace();
+            } catch (DocumentException e) {
+                Log.i("XXX", "DocumentException");
+                e.printStackTrace();
+            } catch(Exception e){
+                Log.i("XXX", "Exception");
                 e.printStackTrace();
             }
-            
-            //Log.i("XXX", "data: " + js);
 
-
-            PluginResult r = new PluginResult(PluginResult.Status.OK);
-            r.setKeepCallback(true);
-            callbackContext.sendPluginResult(r);
-
-            /*if (jsArr != null){
-                for(int i = 0;  i < jsArr.length(); i ++){
-                    this.pagepath.add(jsArr.getString(i));
-                }
-
-                try{
-                    ImagesManager im = new ImagesManager(this.pagepath);
-                    String pdfPath = im.createPdf();
-                    Log.i("XXX", pdfPath);
-
-                    PluginResult r = new PluginResult(PluginResult.Status.OK, pdfPath);
-                    r.setKeepCallback(true);
-                    callbackContext.sendPluginResult(r);
-
-                } catch (FileNotFoundException e) {
-                    Log.i("XXX", "FileNotFound");
-                    e.printStackTrace();
-                } catch (DocumentException e) {
-                    Log.i("XXX", "DocumentException");
-                    e.printStackTrace();
-                } catch(Exception e){
-                    Log.i("XXX", "Exception");
-                    e.printStackTrace();
-                }
-
-            }*/
             return true;
         }
 
