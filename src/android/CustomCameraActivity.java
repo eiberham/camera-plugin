@@ -304,7 +304,8 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
                 if(pagepath.size() > 0){
                     String pdfpath = "file://";
                     try {
-                        pdfpath += createPdf();
+                        ImagesManager im = new ImagesManager(pagepath);
+                        pdfpath = im.createPdf();
                         deletePictures(pagepath);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
@@ -407,46 +408,4 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
         }
     }
 
-    private String createPdf() throws FileNotFoundException, DocumentException {
-        SecureRandom sRand = new SecureRandom();
-        String filename = new BigInteger(130, sRand).toString(32) + ".pdf";
-        String target_path = Environment.getExternalStorageDirectory().getAbsolutePath() +
-                NOSCONECTA_FOLDERS + filename;
-
-        File myFile = new File(target_path);
-
-        OutputStream output = new FileOutputStream(myFile);
-
-        //Step 1
-        Document document = new Document();
-
-        //Step 2
-        try {
-            PdfWriter.getInstance(document, output);
-        } catch (DocumentException e) {
-            e.printStackTrace();
-        }
-
-        //Step 3
-        document.open();
-        
-
-        for(int i = 0; i <= pagepath.size() -1; i ++){
-
-            try {
-                Image image = Image.getInstance(pagepath.get(i));
-                image.setAlignment(Image.MIDDLE);
-                image.scaleToFit((PageSize.A4.getWidth() -25), (PageSize.A4.getHeight()-25));
-                document.add(image);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            document.newPage();
-        }
-
-        //Step 5: Close the document
-        document.close();
-
-        return target_path;
-    }
 }

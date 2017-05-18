@@ -7,7 +7,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.apache.cordova.PluginResult;
 import org.apache.cordova.CordovaInterface;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Build;
@@ -21,11 +20,12 @@ import java.util.ArrayList;
 
 public class CustomCameraPlugin extends CordovaPlugin{
 
-
     private static final String CAMERA = "customCamera";
+    private static final String IMAGES = "images";
     private static final int GET_PICTURES_REQUEST = 1;
     private CallbackContext callback;
     private boolean running = false;
+    private ArrayList<String> pagepath;
 
 
     public CustomCameraPlugin() {}
@@ -59,6 +59,21 @@ public class CustomCameraPlugin extends CordovaPlugin{
             }
 
             return true;
+        } else if(action.equals(IMAGES)){
+            JSONArray jsArr = args.getJSONArray(0);
+            if (jsArr != null){
+                for(int i = 0;  i < jsArr.length(); i ++){
+                    this.pagepath.add(jsArr.getString(i));
+                }
+
+                ImagesManager im = new ImagesManager(this.pagepath);
+                String pdfPath = im.createPdf();
+
+                PluginResult r = new PluginResult(PluginResult.Status.OK, pdfPath);
+                r.setKeepCallback(true);
+                callbackContext.sendPluginResult(r);
+            }
+            return true;
         }
 
         return false;
@@ -79,7 +94,6 @@ public class CustomCameraPlugin extends CordovaPlugin{
                 PluginResult r = new PluginResult(PluginResult.Status.OK);
                 r.setKeepCallback(true);
                 callback.sendPluginResult(r);
-
             }
         }
     }

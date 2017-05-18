@@ -33,6 +33,13 @@ var CustomCameraPlugin =
         }, function(error){
             callbackFailure(error);
         }, "CustomCameraPlugin", "customCamera", []);
+    },
+    processImage: function(images, callbackSuccess, callbackFailure){
+        return exec(function(response){
+            callbackSuccess(response);
+        }, function(error){
+            callbackFailure(error);
+        }, "CustomCameraPlugin", "images", images);
     }
 }
 
