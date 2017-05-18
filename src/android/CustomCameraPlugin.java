@@ -66,6 +66,17 @@ public class CustomCameraPlugin extends CordovaPlugin{
             Log.i("XXX", "Pasa por imágenes");
             try {
                 JSONObject json = args.getJSONObject(0);
+                Iterator<String> iter = json.keys();
+                while(iter.hasNext()){
+                    String key = iter.next();
+                    try{
+                        Object value = json.get(key);
+                        Log.i("XXX", value.toString());
+                    }catch(JSONException e){
+                        Log.i("XXX", "Excepcion iterador");
+                        e.printStackTrace();
+                    }
+                }
                 //JSONObject images = json.has("images") ? json.getJSONObject("images") : null;
                 Log.i("XXX", json.toString());
                 /*for(int i=0; i<json.length(); i++){
