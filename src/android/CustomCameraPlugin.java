@@ -73,7 +73,7 @@ public class CustomCameraPlugin extends CordovaPlugin{
                     try{
                         JSONArray value = json.getJSONArray(key);
                         for(int i = 0; i < value.length(); i ++){
-                            images.add(value.getString(i));
+                            this.pagepath.add(value.getString(i));
                         }
                     }catch(JSONException e){
                         Log.i("XXX", "Excepcion iterador");
