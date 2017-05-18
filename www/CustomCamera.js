@@ -39,7 +39,7 @@ var CustomCameraPlugin =
             callbackSuccess(response);
         }, function(error){
             callbackFailure(error);
-        }, "CustomCameraPlugin", "images", [images]);
+        }, "CustomCameraPlugin", "images", images);
     }
 }
 
