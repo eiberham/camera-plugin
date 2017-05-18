@@ -64,10 +64,10 @@ public class CustomCameraPlugin extends CordovaPlugin{
             return true;
         } else if(action.equals(IMAGES)){
             Log.i("XXX", "Pasa por imágenes");
-            JSONArray jsArr = args.getJSONArray(0);
-            Log.i("XXX", "length: " + jsArr.length());
+            String jsArr = args.getString(0);
+            Log.i("XXX", "data: " + jsArr);
 
-            if (jsArr != null){
+            /*if (jsArr != null){
                 for(int i = 0;  i < jsArr.length(); i ++){
                     this.pagepath.add(jsArr.getString(i));
                 }
@@ -92,7 +92,7 @@ public class CustomCameraPlugin extends CordovaPlugin{
                     e.printStackTrace();
                 }
 
-            }
+            }*/
             return true;
         }
 
