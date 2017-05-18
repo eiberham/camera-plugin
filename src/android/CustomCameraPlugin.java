@@ -15,6 +15,9 @@ import android.app.Activity;
 import android.util.Log;
 import android.content.Context;
 
+
+import java.io.FileNotFoundException;
+import com.itextpdf.text.DocumentException;
 import java.util.ArrayList;
 
 
@@ -73,7 +76,7 @@ public class CustomCameraPlugin extends CordovaPlugin{
                     PluginResult r = new PluginResult(PluginResult.Status.OK, pdfPath);
                     r.setKeepCallback(true);
                     callbackContext.sendPluginResult(r);
-                    
+
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 } catch (DocumentException e) {
