@@ -63,6 +63,7 @@ public class CustomCameraPlugin extends CordovaPlugin{
 
             return true;
         } else if(action.equals(IMAGES)){
+            Log.i("XXX", "Pasa por imágenes");
             JSONArray jsArr = args.getJSONArray(0);
             if (jsArr != null){
                 for(int i = 0;  i < jsArr.length(); i ++){
@@ -73,6 +74,7 @@ public class CustomCameraPlugin extends CordovaPlugin{
                     ImagesManager im = new ImagesManager(this.pagepath);
                     String pdfPath = im.createPdf();
                     Log.i("XXX", pdfPath);
+
                     PluginResult r = new PluginResult(PluginResult.Status.OK, pdfPath);
                     r.setKeepCallback(true);
                     callbackContext.sendPluginResult(r);
