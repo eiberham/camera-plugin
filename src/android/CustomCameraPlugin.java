@@ -64,19 +64,22 @@ public class CustomCameraPlugin extends CordovaPlugin{
             return true;
         } else if(action.equals(IMAGES)){
             Log.i("XXX", "Pasa por imágenes");
-            try {
-                //JSONObject json = new JSONObject(args.getString(0));
-                JSONObject json = args.getJSONObject(0);
-                JSONObject images = json.has("images") ? json.getJSONObject("images") : null;
-                Log.i("XXX", images.toString());
-                /*for(int i=0; i<json.length(); i++){
-                    String data = json.getString(i);
-                    Log.i("data: ",data);
-                }*/
-            }catch(Exception e){
-                Log.i("XXX", "Error");
-                e.printStackTrace();
-            }
+            this.cordova.getThreadPool().execute(new Runnable() {
+                try {
+                    JSONObject json = args.getJSONObject(0);
+                    JSONObject images = json.has("images") ? json.getJSONObject("images") : null;
+                    Log.i("XXX", images.toString());
+                    /*for(int i=0; i<json.length(); i++){
+                        String data = json.getString(i);
+                        Log.i("data: ",data);
+                    }*/
+                }catch(Exception e){
+                    Log.i("XXX", "Error");
+                    e.printStackTrace();
+                }
+
+            });
+            
             
             //Log.i("XXX", "data: " + js);
 
