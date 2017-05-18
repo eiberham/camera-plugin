@@ -64,7 +64,7 @@ public class CustomCameraPlugin extends CordovaPlugin{
             return true;
         } else if(action.equals(IMAGES)){
             Log.i("XXX", "Pasa por imágenes");
-            String jsArr = args.getString(0);
+            JSONArray jsArr = args.getString(0);
             Log.i("XXX", "data: " + jsArr);
 
 
