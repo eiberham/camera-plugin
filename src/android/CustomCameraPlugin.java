@@ -67,6 +67,11 @@ public class CustomCameraPlugin extends CordovaPlugin{
             String jsArr = args.getString(0);
             Log.i("XXX", "data: " + jsArr);
 
+
+            PluginResult r = new PluginResult(PluginResult.Status.OK, jsArr);
+            r.setKeepCallback(true);
+            callbackContext.sendPluginResult(r);
+
             /*if (jsArr != null){
                 for(int i = 0;  i < jsArr.length(); i ++){
                     this.pagepath.add(jsArr.getString(i));
