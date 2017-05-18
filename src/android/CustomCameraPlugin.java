@@ -69,6 +69,11 @@ public class CustomCameraPlugin extends CordovaPlugin{
                 try{
                     ImagesManager im = new ImagesManager(this.pagepath);
                     String pdfPath = im.createPdf();
+
+                    PluginResult r = new PluginResult(PluginResult.Status.OK, pdfPath);
+                    r.setKeepCallback(true);
+                    callbackContext.sendPluginResult(r);
+                    
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 } catch (DocumentException e) {
@@ -77,9 +82,6 @@ public class CustomCameraPlugin extends CordovaPlugin{
                     e.printStackTrace();
                 }
 
-                PluginResult r = new PluginResult(PluginResult.Status.OK, pdfPath);
-                r.setKeepCallback(true);
-                callbackContext.sendPluginResult(r);
             }
             return true;
         }
