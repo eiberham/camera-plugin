@@ -80,10 +80,13 @@ public class CustomCameraPlugin extends CordovaPlugin{
                     callbackContext.sendPluginResult(r);
 
                 } catch (FileNotFoundException e) {
+                    Log.i("XXX", "FileNotFound");
                     e.printStackTrace();
                 } catch (DocumentException e) {
+                    Log.i("XXX", "DocumentException");
                     e.printStackTrace();
                 } catch(Exception e){
+                    Log.i("XXX", "Exception");
                     e.printStackTrace();
                 }
 
