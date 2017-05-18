@@ -70,14 +70,9 @@ public class CustomCameraPlugin extends CordovaPlugin{
                 Iterator<String> iter = json.keys();
                 while(iter.hasNext()){
                     String key = iter.next();
-                    try{
-                        JSONArray value = json.getJSONArray(key);
-                        for(int i = 0; i < value.length(); i ++){
-                            this.pagepath.add(value.getString(i));
-                        }
-                    }catch(JSONException e){
-                        Log.i("XXX", "Excepcion iterador");
-                        e.printStackTrace();
+                    JSONArray value = json.getJSONArray(key);
+                    for(int i = 0; i < value.length(); i ++){
+                        this.pagepath.add(value.getString(i));
                     }
                 }
 
@@ -94,9 +89,12 @@ public class CustomCameraPlugin extends CordovaPlugin{
             } catch (DocumentException e) {
                 Log.i("XXX", "DocumentException");
                 e.printStackTrace();
-            } catch(Exception e){
+            } catch(JSONException e){
+                e.printStackTrace();
+            }catch(Exception e){
                 Log.i("XXX", "Exception");
                 e.printStackTrace();
+                e.getMessage();
             }
 
             return true;
