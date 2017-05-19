@@ -29,7 +29,7 @@ public class CustomCameraPlugin extends CordovaPlugin{
     private static final int GET_PICTURES_REQUEST = 1;
     private CallbackContext callback;
     private boolean running = false;
-    private ArrayList<String> pagepath;
+    private ArrayList<String> pagepath = new ArrayList<String>();
 
 
     public CustomCameraPlugin() {}
