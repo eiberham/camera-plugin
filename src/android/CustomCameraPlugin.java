@@ -64,6 +64,8 @@ public class CustomCameraPlugin extends CordovaPlugin{
 
             return true;
         } else if(action.equals(IMAGES)){
+
+            if(this.pagepath >= 1) this.pagepath.clear();
             
             try{
                 JSONObject json = args.getJSONObject(0);
@@ -80,22 +82,17 @@ public class CustomCameraPlugin extends CordovaPlugin{
                 String pdfpath = im.createPdf();
                 pdfpath = "file://" + pdfpath;
 
-                Log.i("XXX", pdfpath);
-
                 PluginResult r = new PluginResult(PluginResult.Status.OK, pdfpath);
                 r.setKeepCallback(true);
                 callbackContext.sendPluginResult(r);
 
             } catch (FileNotFoundException e) {
-                Log.i("XXX", "FileNotFound");
                 e.printStackTrace();
             } catch (DocumentException e) {
-                Log.i("XXX", "DocumentException");
                 e.printStackTrace();
             } catch(JSONException e){
                 e.printStackTrace();
             }catch(Exception e){
-                Log.i("XXX", "Exception");
                 e.printStackTrace();
                 e.getMessage();
             }
