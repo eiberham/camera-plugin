@@ -305,7 +305,7 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
                     String pdfpath = "file://";
                     try {
                         ImagesManager im = new ImagesManager(pagepath);
-                        pdfpath = im.createPdf();
+                        pdfpath = pdfpath + im.createPdf();
                         deletePictures(pagepath);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
