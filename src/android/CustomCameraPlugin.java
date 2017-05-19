@@ -79,6 +79,8 @@ public class CustomCameraPlugin extends CordovaPlugin{
                 ImagesManager im = new ImagesManager(this.pagepath);
                 String pdfPath = im.createPdf();
 
+                Log.i("XXX", pdfPath);
+
                 PluginResult r = new PluginResult(PluginResult.Status.OK, pdfPath);
                 r.setKeepCallback(true);
                 callbackContext.sendPluginResult(r);
