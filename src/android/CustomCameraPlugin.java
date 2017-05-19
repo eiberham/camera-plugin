@@ -65,7 +65,7 @@ public class CustomCameraPlugin extends CordovaPlugin{
             return true;
         } else if(action.equals(IMAGES)){
 
-            if(this.pagepath >= 1) this.pagepath.clear();
+            if(this.pagepath.size() >= 1) this.pagepath.clear();
             
             try{
                 JSONObject json = args.getJSONObject(0);
