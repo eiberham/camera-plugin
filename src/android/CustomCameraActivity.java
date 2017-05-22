@@ -229,6 +229,7 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
                         camera.setDisplayOrientation(90);
                         Camera.Parameters parameters = camera.getParameters();
                         parameters.setPictureSize(CAMERA_DEFAULT_WIDTH, CAMERA_DEFAULT_HEIGHT);
+                        parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
                         camera.setParameters(parameters);
                         camera.setPreviewDisplay(surfaceHolder);
                     } catch (IOException e) {
@@ -259,6 +260,7 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
                 camera.setDisplayOrientation(90);
                 Camera.Parameters parameters = camera.getParameters();
                 parameters.setPictureSize(CAMERA_DEFAULT_WIDTH, CAMERA_DEFAULT_HEIGHT);
+                parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
                 camera.setParameters(parameters);
                 camera.setPreviewDisplay(holder);
                 camera.startPreview();
