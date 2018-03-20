@@ -1,7 +1,7 @@
 {
   "name": "zetech-custom-camera-plugin",
   "version": "1.0.2",
-  "description": "Cordova Custom Camera Plugin"
+  "description": "Cordova Custom Camera Plugin",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/scripthub/CustomCameraPlugin.git"
