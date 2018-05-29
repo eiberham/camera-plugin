@@ -45,7 +45,8 @@ public class ImagesManager {
 
         OutputStream output = new FileOutputStream(myFile);
 
-        Document document = new Document();
+        Document document = new Document(PageSize.A4);
+        document.setMargins(0,0,0,0);
 
         try {
             PdfWriter.getInstance(document, output);
@@ -60,7 +61,7 @@ public class ImagesManager {
             try {
                 Image image = Image.getInstance(this.images.get(i));
                 image.setAlignment(Image.ALIGN_CENTER);
-                image.scaleToFit((PageSize.A4.getWidth()), (PageSize.A4.getHeight()));
+                image.scaleToFit((PageSize.A3.getWidth()), (PageSize.A3.getHeight()));
                 document.add(image);
             } catch (IOException e) {
                 e.printStackTrace();
