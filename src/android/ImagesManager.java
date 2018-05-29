@@ -59,8 +59,8 @@ public class ImagesManager {
 
             try {
                 Image image = Image.getInstance(this.images.get(i));
-                //image.setAlignment(Image.MIDDLE);
-                image.scaleToFit((PageSize.A4.getWidth()-1), (PageSize.A4.getHeight()-1));
+                image.setAlignment(Image.ALIGN_CENTER);
+                image.scaleToFit((PageSize.A4.getWidth() - 25), (PageSize.A4.getHeight() - 25));
                 document.add(image);
             } catch (IOException e) {
                 e.printStackTrace();
